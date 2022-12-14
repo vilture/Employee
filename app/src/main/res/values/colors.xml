@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D81B60</color>
+    <color name="colorPrimaryDark">#CB2122</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="transparent_blue">#322100c8</color>
+
+    <color name="monroRed">#CB2121</color>
+    <color name="monroDarken">#840B0B</color>
+    <color name="monroSoft">#E55555</color>
+    <color name="monroLight">#E57C7C</color>
+    <color name="monroShad">#BC9E9D9D</color>
+    <color name="monroTransp">@android:color/transparent</color>
+
+    <color name="monroBlack">#000000</color>
+    <color name="monroWhite">#FFFFFF</color>
+    <color name="monroGray">#828282</color>
+</resources>

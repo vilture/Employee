@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Сотрудник Монро</string>
+    <string name="main_name">"Сотрудник в "</string>
+
+    <string name="auth_auth">Авторизация</string>
+    <string name="auth_mag">Магазин:</string>
+    <string name="auth_city">Город:</string>
+    <string name="auth_tel">Телефон:</string>
+    <string name="auth_scode">Отправить код</string>
+    <string name="auth_code">Код для авторизации</string>
+
+    <string name="action_help">Помощь</string>
+    <string name="action_userChange">Сменить пользователя</string>
+    <string name="action_mservip">Ввести адрес сервера</string>
+    <string name="action_update">Проверить обновления</string>
+    <string name="action_info">Информация</string>
+    <string name="btn_infok">Инфокиоск</string>
+    <string name="str_checks">Проверки</string>
+    <string name="str_checkprice">Проверка цен товаров</string>
+    <string name="str_checkkm">Проверка КМ перед продажей</string>
+    <string name="str_info">Информация</string>
+    <string name="str_btnlabst">Остатки в других магазинах</string>
+    <string name="similarTov">Похожие товары</string>
+    <string name="infowarning">Отсканируйте ценник</string>
+    <string name="infodkwarning">Отсканируйте ДК</string>
+    <string name="whatsnew">Что нового:</string>
+    <string name="whatsnew_extra">Для подробной информации по работе с приложением читайте пункт «Помощь» в настройках приложения</string>
+    <string name="btn_infodk">Данные ДК</string>
+    <string name="str_rep">Отчеты</string>
+    <string name="btn_fotorep">Фотоотчет</string>
+    <string name="str_takefoto">Сделать фото</string>
+    <string name="action_debug">debug режим</string>
+
+
+</resources>

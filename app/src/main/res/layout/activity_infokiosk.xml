@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/info_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.potyvideo.slider.library.SliderLayout
+        android:id="@+id/img_slider"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/sliderfon"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="@+id/img_slider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/scrl_matnr"
+            app:srcCompat="@drawable/shape_indslider" />
+
+        <com.potyvideo.slider.library.Indicators.PagerIndicator
+            android:id="@+id/img_indicator"
+            style="@style/ImageSlider_Indicator" />
+
+    </com.potyvideo.slider.library.SliderLayout>
+
+    <TextView
+        android:id="@+id/tx_infowarn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/geometria_medium"
+        android:shadowColor="@color/monroShad"
+        android:text="@string/infowarning"
+        android:textColor="@color/monroDarken"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scrl_matnr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/monroWhite"
+        android:fadeScrollbars="false"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:scrollIndicators="top|bottom"
+        android:scrollbarSize="6dp"
+        android:scrollbarThumbVertical="@color/monroDarken"
+        android:verticalScrollbarPosition="left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_slider">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/table_matnr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:shrinkColumns="1,4" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrl_labst"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/monroWhite"
+        android:fadeScrollbars="false"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:scrollIndicators="top|bottom"
+        android:scrollbarSize="6dp"
+        android:scrollbarThumbVertical="@color/monroDarken"
+        android:verticalScrollbarPosition="left"
+        app:layout_constraintBottom_toTopOf="@+id/btn_const"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrl_matnr">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/table_labst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:shrinkColumns="*" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_const"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_labst"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/geometria_medium"
+            android:gravity="left|center_vertical"
+            android:text="@string/str_btnlabst"
+            android:textAllCaps="false"
+            android:textColor="@color/monroDarken"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_similar"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_similar"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/geometria_medium"
+            android:gravity="right|center_vertical"
+            android:text="@string/similarTov"
+            android:textAllCaps="false"
+            android:textColor="@color/monroDarken"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_labst" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scanMatnrKiosk"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="scan"
+        android:src="@raw/barcode"
+        app:backgroundTint="@color/monroWhite"
+        app:fabCustomSize="80dp"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="50dp" />
+
+
+    <ImageView
+        android:id="@+id/shadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/monroShad" />
+
+    <FrameLayout
+        android:id="@+id/frame_labstsz"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_szclose"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Закрыть"
+            android:textColor="@color/monroWhite"
+            android:theme="@style/MainButton" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dip"
+                android:fillViewport="true"
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@color/monroDarken"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="horizontal|vertical"
+                tools:ignore="UselessParent">
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:fadeScrollbars="false"
+                    android:scrollIndicators="bottom|end"
+                    android:scrollbarThumbHorizontal="@color/monroDarken"
+                    android:scrollbars="horizontal|vertical"
+                    android:verticalScrollbarPosition="left">
+
+                    <TableLayout
+                        android:id="@+id/table_labstsz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/monroGray"
+                        android:stretchColumns="*" />
+
+                </HorizontalScrollView>
+            </ScrollView>
+        </RelativeLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

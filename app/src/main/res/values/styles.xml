@@ -1,0 +1,67 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Устанавливается в качестве splash -->
+    <style name="AppTheme.ThemeLauncher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="colorPrimaryDark">@color/monroRed</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Устанавливается без заголовка -->
+    <style name="AppThemeNoTitle" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
+
+    <style name="AlertDialogCustomR" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/monroWhite</item>
+        <item name="android:textColorPrimary">@color/monroWhite</item>
+        <item name="android:background">@color/monroDarken</item>
+    </style>
+
+    <style name="AlertDialogCustomW" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/monroBlack</item>
+        <item name="android:textColorPrimary">@color/monroBlack</item>
+        <item name="android:background">@color/monroWhite</item>
+    </style>
+
+    <style name="MainButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/shape_button</item>
+        <item name="colorButtonNormal">@color/monroRed</item>
+        <item name="android:colorPrimary">@color/monroDarken</item>
+        <item name="colorControlHighlight">@color/monroDarken</item>
+        <item name="android:stateListAnimator">@animator/anim_button</item>
+    </style>
+
+    <style name="ImageSlider_Indicator">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">20dp</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="unselected_color">@color/monroRed</item>
+        <item name="shape">oval</item>
+
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+
+        <item name="padding_left">2dp</item>
+        <item name="padding_right">2dp</item>
+        <item name="padding_top">3dp</item>
+        <item name="padding_bottom">3dp</item>
+
+        <item name="selected_width">10dp</item>
+        <item name="selected_height">10dp</item>
+        <item name="unselected_width">10dp</item>
+        <item name="unselected_height">10dp</item>
+    </style>
+
+
+</resources>
