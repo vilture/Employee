@@ -425,15 +425,21 @@ class CommonFun {
                     intent.data = uri
                     activity.startActivity(intent)
                 }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            } else {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                     permission
                 )
-            } else {
-                return
+
             }
+
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                permission
+            )
+
         }
 
         /**
@@ -444,7 +450,8 @@ class CommonFun {
             val cm = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
             if (wifiInfo == null || !wifiInfo.isConnected) {
-                Toast.makeText(ctx, "Вы не подключены к сети магазина", Toast.LENGTH_LONG).show()
+                Toast.makeText(ctx, "Вы не подключены к сети магазина", Toast.LENGTH_LONG)
+                    .show()
                 return false
             }
 
@@ -603,7 +610,8 @@ class CommonFun {
                 "%032x",
                 BigInteger(
                     1,
-                    MessageDigest.getInstance("MD5").digest(pseudoID.toByteArray(Charsets.UTF_8))
+                    MessageDigest.getInstance("MD5")
+                        .digest(pseudoID.toByteArray(Charsets.UTF_8))
                 )
             )
             return idHashed

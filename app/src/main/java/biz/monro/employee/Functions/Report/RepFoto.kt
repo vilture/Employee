@@ -1,39 +1,55 @@
-@file:Suppress("DEPRECATION")
-
 package biz.monro.employee.Functions
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import biz.monro.employee.Adapter.RecyclerViewAdapter
 import biz.monro.employee.BuildConfig
 import biz.monro.employee.databinding.ActivityFotorepBinding
+import biz.monro.employee.databinding.ItemFotoBinding
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.stream.Collectors
 
 
 class RepFoto : AppCompatActivity() {
     private val images = ArrayList<String>()
     private lateinit var binding: ActivityFotorepBinding
+    private lateinit var bindingFoto: ItemFotoBinding
 
     lateinit var currentPhotoPath: String
     private var CAMERA_REQUEST = 100
 
+    private var imagePaths: ArrayList<String>? = null
+    private var imagesRV: RecyclerView? = null
+    private var imageRVAdapter: RecyclerViewAdapter? = null
 
     @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityFotorepBinding.inflate(layoutInflater)
+        bindingFoto = ItemFotoBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         if (!CommonFun.checkMServIP(this)) {
@@ -54,9 +70,11 @@ class RepFoto : AppCompatActivity() {
         )
             CommonFun.filesPermission(this)
 
+        //подгрузим галерею
+        loadImageAsync()
 
         binding.btnTakefoto.setOnClickListener {
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            resultTakefoto.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(packageManager)?.also {
                     val photoFile: File? = try {
                         createImageFile()
@@ -72,19 +90,61 @@ class RepFoto : AppCompatActivity() {
                             it
                         )
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, CAMERA_REQUEST)
                     }
                 }
-            }
+            })
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    val resultTakefoto =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                imagePaths!!.add(currentPhotoPath)
+            }
 
-    /**
-     * путь временного файла для фото
-     */
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
+            imageRVAdapter!!.notifyDataSetChanged()
+        }
+
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun loadImageAsync() = GlobalScope.async {
+        openviewer()
+    }
+
+    @SuppressLint("Recycle", "NotifyDataSetChanged")
+    fun openviewer() {
+        imagePaths = ArrayList()
+        imagesRV = binding.rvFoto
+
+        imageRVAdapter = RecyclerViewAdapter(this@RepFoto, imagePaths!!)
+
+        var fotoList: List<File> = emptyList()
+        val manager = GridLayoutManager(this@RepFoto, 4)
+
+        imagesRV!!.layoutManager = manager
+        imagesRV!!.adapter = imageRVAdapter
+
+        val path = createFotoFolder().toURI()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fotoList = Files.walk(Paths.get(path))
+                .filter { path: Path? ->
+                    Files.isRegularFile(
+                        path
+                    )
+                }
+                .map { obj: Path -> obj.toFile() }
+                .collect(Collectors.toList())
+        } else {
+            fotoList = File(path).listFiles()?.toList() as List<File>
+        }
+
+        fotoList.forEach { imagePaths!!.add(it.absoluteFile.toString()) }
+
+        imageRVAdapter!!.notifyDataSetChanged()
+    }
+
+    private fun createFotoFolder(): File {
         val mdir = File(Environment.getExternalStorageDirectory(), "MonroAPP")
         if (!mdir.exists()) {
             mdir.mkdir()
@@ -93,6 +153,16 @@ class RepFoto : AppCompatActivity() {
         if (!fdir.exists()) {
             fdir.mkdir()
         }
+
+        return fdir
+    }
+
+    /**
+     * путь файла для фото
+     */
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val path = createFotoFolder()
 
         return File.createTempFile(
             "${
@@ -104,7 +174,7 @@ class RepFoto : AppCompatActivity() {
                 CommonFun.curDate()
             }_",
             ".jpg",
-            fdir
+            path
         ).apply {
             currentPhotoPath = absolutePath
         }
@@ -117,15 +187,7 @@ class RepFoto : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            try {
-                Log.i("debug", data?.extras?.get("data").toString())
-            } catch (e: Exception) {
-                e.message?.let { Log.i("debug", it) }
-            }
-
-            //val imageBitmap = data?.extras!!.get("data") as Bitmap
-
-
+            loadImageAsync()
         }
     }
 }

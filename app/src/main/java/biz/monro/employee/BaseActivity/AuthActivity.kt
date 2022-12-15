@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import biz.monro.employee.APICall.APICallTask
+import biz.monro.employee.BuildConfig
 import biz.monro.employee.Functions.CommonFun
 import biz.monro.employee.R
 import biz.monro.employee.databinding.ActivityAuthBinding
@@ -44,6 +45,9 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (BuildConfig.DEBUG)
+            Runtime.getRuntime().exec("am set-debug-app biz.monro.employee")
+
 
         // загружаем авторизацию
         if (loadPass()) {
@@ -52,7 +56,7 @@ class AuthActivity : AppCompatActivity() {
 
         binding.attempts.setBackgroundColor(Color.RED)
 
-         // атрибуты запроса списка магазинов
+        // атрибуты запроса списка магазинов
         val apiWerksPar = HashMap<String, String>()
         apiWerksPar["function"] = "get_werks_list"
         apiWerksPar["date"] = CommonFun.curDate()
